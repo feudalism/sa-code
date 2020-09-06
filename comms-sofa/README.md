@@ -13,6 +13,7 @@ from the SendSocket.
     python ./main.py
 
 ## Requirements
+* [SOFA](https://www.sofa-framework.org/)
 * Python 2
 * [PyDataSocket](https://github.com/psomers3/PyDataSocket)
 * numpy
