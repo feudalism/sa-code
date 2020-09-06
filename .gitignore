@@ -5,6 +5,7 @@
 *.pyc
 *py.log
 *.lnk
+*egg-info*
 
 # venvs
 *.venv*

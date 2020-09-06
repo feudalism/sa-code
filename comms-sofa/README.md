@@ -1,3 +1,8 @@
+# comms-sofa
 Communicating with SOFA using [PyDataSocket](https://github.com/psomers3/PyDataSocket).
+Minimal example using a beam.
 
-Uses Python2.
+# Requirements
+* Python 2
+* [PyDataSocket](https://github.com/psomers3/PyDataSocket)
+* numpy
