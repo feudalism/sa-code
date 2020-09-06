@@ -9,6 +9,8 @@ from the SendSocket.
 ![](https://github.com/feudalism/sa-code/raw/python2/comms-sofa/start.PNG)
 ![](https://github.com/feudalism/sa-code/raw/python2/comms-sofa/end.PNG)
 
+    python ./main.py
+
 # Requirements
 * Python 2
 * [PyDataSocket](https://github.com/psomers3/PyDataSocket)

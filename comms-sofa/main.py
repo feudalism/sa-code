@@ -1,9 +1,15 @@
+"""
+    Forces the end node of a beam to a new position value
+    from an external data source.
+    The communication with SOFA is done using PyDataSocket.
+"""
+
 from DataSocket import TCPSendSocket, NUMPY
 from threading import Thread
 from settings import NUMBER_OF_MESSAGES, PORT
 import time, os
 
-SOFA_PY_SCRIPT = 'changePosValue.py'
+SOFA_PY_SCRIPT = 'sofa_set_position.py'
     
 def sending_function():
     """ Creates a send socket to transmit sample data. """
