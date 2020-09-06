@@ -1,0 +1,12 @@
+## TEMPORARY FILES
+*.tmp
+
+## DO NOT UPLOAD
+*.pyc
+*py.log
+*.lnk
+
+# venvs
+*.venv*
+Pipfile.lock
+Pipfile
