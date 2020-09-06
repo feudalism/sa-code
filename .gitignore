@@ -9,4 +9,3 @@
 # venvs
 *.venv*
 Pipfile.lock
-Pipfile
