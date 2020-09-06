@@ -1,0 +1,3 @@
+[submodule "comms-sofa/PyDataSocket"]
+	path = comms-sofa/PyDataSocket
+	url = https://github.com/feudalism/PyDataSocket.git
