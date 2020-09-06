@@ -1,12 +1,13 @@
 # comms-sofa
-Communicating with SOFA using [PyDataSocket](https://github.com/psomers3/PyDataSocket).\\
+Communicating with SOFA using [PyDataSocket](https://github.com/psomers3/PyDataSocket).
 
-Here, a minimal simulation using a beam is carried out, where
-the end node of the beam is forced to the position value transmitted
+Here, a minimal simulation using a beam is carried out.
+At every time step, the end node of the beam
+is forced to the position value transmitted
 from the SendSocket.
 
-![](/start.PNG)
-![](/end.PNG)
+![](/raw/python2/start.PNG)
+![](/raw/python2/end.PNG)
 
 # Requirements
 * Python 2
