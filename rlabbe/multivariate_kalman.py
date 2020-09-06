@@ -1,12 +1,11 @@
 # Function to test the implementation of a basic multivariate Kalman filter
 # for 1D tracking, using 1 sensor
 
-from Parameters import Parameters
-from Parameters import set_sim_parameters
+from cls import Parameters, set_sim_parameters
 
-from KalmanFilter import KalmanFilter
-from Dog import Dog
-from Sensor import Sensor
+from cls import KalmanFilter
+from cls import Dog
+from cls import Sensor
 
 import numpy as np
 import matplotlib.pyplot as plt
