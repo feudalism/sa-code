@@ -1,20 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from Parameters import Parameters
+from cls import Parameters, set_sim_parameters
 
 # Tuned parameters
 g = 4.0/10
 h = 1./3
-	
-def set_sim_parameters(t0, tf, dt, x0):
-	sim_params = Parameters()
-	sim_params.t0 = t0
-	sim_params.tf = tf
-	sim_params.dt = dt
-	sim_params.x0 = x0
-	return sim_params
-
 
 def model(x_est, dt):
     x = x_est[0]

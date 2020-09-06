@@ -23,8 +23,8 @@ class KalmanFilter(object):
                            IC[1]])   
         
     def print_info(self):
-        print "x = {0:.2f} m, v = {1:.2f} m/s".format(self.x[0][0], self.x[1][0])
-        print "{0}".format(self.P.round(decimals=2))
+        print("x = {0:.2f} m, v = {1:.2f} m/s".format(self.x[0][0], self.x[1][0]))
+        print(f"{self.P.round(decimals=2)}")
         
     def calculate_states(self, dt=None):
         self.x = self.system.calculate_states(dt)
