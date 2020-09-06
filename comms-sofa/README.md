@@ -6,8 +6,8 @@ At every time step, the end node of the beam
 is forced to the position value transmitted
 from the SendSocket.
 
-![](/raw/python2/start.PNG)
-![](/raw/python2/end.PNG)
+![](/raw/python2/comms-sofa/start.PNG)
+![](/raw/python2/comms-sofa/end.PNG)
 
 # Requirements
 * Python 2
