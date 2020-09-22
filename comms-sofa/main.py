@@ -7,7 +7,7 @@
 from DataSocket import TCPSendSocket, NUMPY
 from threading import Thread
 from settings import NUMBER_OF_MESSAGES, PORT
-import time, os
+import time, os, sys
 
 SOFA_PY_SCRIPT = 'sofa_set_position.py'
     
@@ -18,11 +18,11 @@ def sending_function():
 
     # sample data: 1, 2, ... 6
     for i in range(NUMBER_OF_MESSAGES):
-        print '\t sending! {0}'.format(i+1)
+        print(f"\t sending! {i+1}")
         send_socket.send_data(i+1)
         time.sleep(1.5)
 
-    print "closing send socket."
+    print("closing send socket.")
     send_socket.stop()
     
 def receiving_function():
@@ -35,8 +35,7 @@ def receiving_function():
         from the send socket.
     """
     
-    os.system('pipenv run runsofa {filename} -a 1'.format(filename=SOFA_PY_SCRIPT))
-    #os.system('runsofa {filename} -a 1'.format(filename=SOFA_PY_SCRIPT))
+    os.system(f"runSofa {SOFA_PY_SCRIPT} -a 1")
 
 send_thread = Thread(target=sending_function)
 rec_thread = Thread(target=receiving_function)

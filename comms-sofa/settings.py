@@ -4,3 +4,6 @@ PORT = 4001             # TCP port to use
 
 # simulation settings
 TMAX = 7.               # max simulation time
+
+# debugging
+VERBOSE = True

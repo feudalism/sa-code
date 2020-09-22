@@ -6,45 +6,47 @@ dir_name = os.path.abspath(dir_name)
 venv_path = os.path.join(dir_name, '.venv\Lib\site-packages')
 sys.path.append(venv_path)
 
+import SofaRuntime
 import Sofa
+import Sofa.Gui
 from BeamMin import BeamMin as Beam
 
 from DataSocket import TCPReceiveSocket
-from settings import PORT, TMAX
+from settings import PORT, TMAX, VERBOSE
 
-def createScene(root_node):
+def create_scene(root_node):
     # required plugins
-    root_node.createObject('RequiredPlugin', name='SofaPython')
-    root_node.createObject('PythonScriptController',
-        name='SetPosition',
-        filename=__file__,
-        classname='SetPosition')
+    # root_node.addObject('RequiredPlugin', name='SofaPython3')
+    # root_node.addObject('PythonScriptController',
+        # name='SetPosition',
+        # filename=__file__,
+        # classname='SetPosition')
         
     # simulation settings
     root_node.gravity = [0, 0., 0]
     root_node.dt = 1
     
     # visuals
-    root_node.createObject('VisualStyle',
+    root_node.addObject('VisualStyle',
         displayFlags='showVisual showWireframe showBehaviorModels')
     
     # solver
-    root_node.createObject('EulerImplicit',
+    root_node.addObject('EulerImplicit',
         name='cg_odersolver',
         printLog='false')
-    root_node.createObject('CGLinearSolver',
+    root_node.addObject('CGLinearSolver',
         name='linear solver',
         iterations=25,
         tolerance=2.0e-9,
         threshold=1.0e-9)
 
-class SetPosition(Sofa.PythonScriptController):
+class SetPosition(Sofa.Core.Controller):
     """ Controller that simulates a simple beam and 
         forces the end node's vertical position to a certain value.
         The value is obtained from an external send socket.
     """
         
-    def createGraph(self,root_node):
+    def createGraph(self, root_node):
         """ Initialises the objects needed for the simulation. """
         self.root_node = root_node
         self.mech_obj = None
@@ -64,10 +66,10 @@ class SetPosition(Sofa.PythonScriptController):
         """
         self.update_positions()
         self.num_nodes = len(self.positions)
-        print 'Total number of nodes {0}'.format(self.num_nodes)
+        print(f"Total number of nodes {self.num_nodes}")
         
         # create a socket in the first step
-        print 't:0.0 \tSTART OF SIMULATION/ANIMATION'
+        print("t:0.0 \tSTART OF SIMULATION/ANIMATION")
         self.rec_socket = TCPReceiveSocket(tcp_port=PORT,
             handler_function=self.set_endnode_y_position)
         self.rec_socket.start(blocking=True)
@@ -91,7 +93,7 @@ class SetPosition(Sofa.PythonScriptController):
         if t >= TMAX:
             self.root_node.getRootContext().animate = False
             self.rec_socket.stop()
-            print 'closing receive socket.'
+            print('closing receive socket.')
 
     def set_endnode_y_position(self, data):
         """ Runs when new data is received from  a send socket.
@@ -142,5 +144,13 @@ class SetPosition(Sofa.PythonScriptController):
         x = node_position[0]
         y = node_position[1]
         t = self.root_node.findData('time').value
-        print 't:{0:2.2f} \t x = {1:2.2f}, y = {2:2.2f}'.format(t, x, y)
-        
+        print(f't:{t:2.2f} \t x = {x:2.2f}, y = {y:2.2f}')
+
+
+
+root = Sofa.Core.Node("root")
+create_scene(root)
+if VERBOSE:
+    Sofa.Simulation.print(root)
+    
+controller = SetPosition()
