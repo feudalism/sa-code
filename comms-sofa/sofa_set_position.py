@@ -1,10 +1,10 @@
 import os, sys, time
 
-# If venv_path not included, numpy doesn't get found when running with pipenv
-dir_name = os.path.join(os.path.dirname(__file__), '..')
-dir_name = os.path.abspath(dir_name)
-venv_path = os.path.join(dir_name, '.venv\Lib\site-packages')
-sys.path.append(venv_path)
+# # If venv_path not included, numpy doesn't get found when running with pipenv
+# dir_name = os.path.join(os.path.dirname(__file__), '..')
+# dir_name = os.path.abspath(dir_name)
+# venv_path = os.path.join(dir_name, '.venv\Lib\site-packages')
+# sys.path.append(venv_path)
 
 import SofaRuntime
 import Sofa
@@ -15,8 +15,6 @@ from DataSocket import TCPReceiveSocket
 from settings import PORT, TMAX, VERBOSE
 
 def create_scene(root_node):
-    # required plugins
-    # root_node.addObject('RequiredPlugin', name='SofaPython3')
     # root_node.addObject('PythonScriptController',
         # name='SetPosition',
         # filename=__file__,
@@ -147,10 +145,23 @@ class SetPosition(Sofa.Core.Controller):
         print(f't:{t:2.2f} \t x = {x:2.2f}, y = {y:2.2f}')
 
 
-
-root = Sofa.Core.Node("root")
-create_scene(root)
-if VERBOSE:
-    Sofa.Simulation.print(root)
+def main():
+    # required plugins
+    SofaRuntime.importPlugin("SofaComponentAll")
+    SofaRuntime.importPlugin("SofaPython3")
+    SofaRuntime.importPlugin("SofaOpenglVisual")
     
-controller = SetPosition()
+    root = Sofa.Core.Node("root")
+    
+    create_scene(root)
+    Sofa.Simulation.init(root)
+    
+    for i in range(0, TMAX):
+        Sofa.Simulation.animate(root, root.dt.value)
+    
+    if VERBOSE:
+        Sofa.Simulation.print(root)
+    
+if __name__ == '__main__':
+    main()
+    
