@@ -7,3 +7,6 @@ TMAX = 7.               # max simulation time
 
 # debugging
 VERBOSE = True
+
+# SOFA
+SOFA_INSTALL_DIR = "/home/user3/sofa/build2/install"

@@ -3,7 +3,7 @@ class BeamMin():
     
     def __init__(self, root, name):
         self.root_node = root
-        self.main_node = root.createChild(name)
+        self.main_node = root.addChild(name)
         self.mech_obj = None  
              
         # structure
@@ -30,7 +30,7 @@ class BeamMin():
         # self.main_node.addObject('LinearMapping', template='Affine,Vec3d')
         
         # visuals
-        self.visu_node = self.main_node.createChild('visual')
+        self.visu_node = self.main_node.addChild('visual')
         self.visu_node.addObject(
             'OglModel', # uses SofaOpenglVisual, displays graphics
             template='Vec3d',

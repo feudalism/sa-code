@@ -10,8 +10,6 @@ from settings import NUMBER_OF_MESSAGES, PORT
 import time, os, sys
 
 SCRIPT_NAME = 'sofa_set_position.py'
-sys.path.insert(0, '~/sofa/build2/install/bin')
-print(sys.path)
     
 # def sending_function():
     # """ Creates a send socket to transmit sample data. """
@@ -36,7 +34,6 @@ print(sys.path)
         # The y-position of the end node is given by the data received
         # from the send socket.
     # """    
-os.system(f"runSofa {SCRIPT_NAME}")
 
 # send_thread = Thread(target=sending_function)
 # rec_thread = Thread(target=receiving_function)
