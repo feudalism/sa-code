@@ -27,15 +27,15 @@ class BeamMin():
             name='ff',
             stiffness='1E6',
             length=1)
-        # self.main_node.addObject('LinearMapping', template='Affine,Vec3d')
+        #self.main_node.addObject('LinearMapping', template='Affine,Vec3d')
         
         # visuals
         self.visu_node = self.main_node.addChild('visual')
-        self.visu_node.addObject(
-            'OglModel', # uses SofaOpenglVisual, displays graphics
-            template='Vec3d',
-            name='visual',
-            src='@../grid',
-            color='0.8 0.2 0.2 1')
-        self.visu_node.addObject('IdentityMapping',
-            template='Vec3d,Vec3d') # update animation with the simulation results
+        # self.visu_node.addObject(
+            # 'OglModel', # uses SofaOpenglVisual, displays graphics
+            # template='Vec3d',
+            # name='visual',
+            # src='@../grid',
+            # color='0.8 0.2 0.2 1')
+        # self.visu_node.addObject('IdentityMapping',
+            # template='Vec3d,Vec3d') # update animation with the simulation results
