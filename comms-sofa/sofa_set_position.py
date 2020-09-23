@@ -93,7 +93,6 @@ def receiving_function():
         
     animate(root)
     
-    
 def main():
     add_required_plugins()
     
