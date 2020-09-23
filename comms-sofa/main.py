@@ -35,8 +35,7 @@ def receiving_function():
         from the send socket.
     """
     
-    os.system('pipenv run runsofa {filename} -a 1'.format(filename=SOFA_PY_SCRIPT))
-    #os.system('runsofa {filename} -a 1'.format(filename=SOFA_PY_SCRIPT))
+    os.system('runsofa {filename} -a 1'.format(filename=SOFA_PY_SCRIPT))
 
 send_thread = Thread(target=sending_function)
 rec_thread = Thread(target=receiving_function)
