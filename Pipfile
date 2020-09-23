@@ -7,8 +7,9 @@ verify_ssl = true
 
 [packages]
 numpy = "*"
-matplotlib = "*"
-scipy = "*"
+matplotlib = "==2.2.5"
+scipy = "==1.2.3"
+pydatasocket = "==0.0.1"
 
 [requires]
 python_version = "2.7"
