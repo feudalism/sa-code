@@ -1,6 +1,7 @@
 # import os, sys, time
 
-from settings import PORT, TMAX, VERBOSE, SOFA_INSTALL_DIR
+from settings import PORT, TMAX, VERBOSE, SOFA_INSTALL_DIR, NUMBER_OF_MESSAGES
+from threading import Thread
 
 import SofaRuntime
 import Sofa
@@ -9,8 +10,8 @@ from SofaRuntime import PluginRepository
 from PositionController import PositionController
 from BeamMin import BeamMin as Beam
 
-# import Sofa.Gui
-# from DataSocket import TCPReceiveSocket
+from DataSocket import TCPSendSocket, NUMPY
+import time
 
 def create_scene(root_node):
     # object to be modelled: beam
@@ -42,6 +43,8 @@ def create_scene(root_node):
     
     # animation
     root_node.addObject("DefaultAnimationLoop", name="loop")
+    
+    return root_node
 
 def add_required_plugins():
     # PluginRepository.addFirstPath(SOFA_INSTALL_DIR)
@@ -52,17 +55,56 @@ def add_required_plugins():
 def animate(root):
     print("Initialising simulation...")
     Sofa.Simulation.init(root)
-    # for i in range(4):
-        # Sofa.Simulation.animate(root, root.dt.value)    
+    
+    t = root.time.value
+    while t < TMAX:
+        Sofa.Simulation.animate(root, root.dt.value)    
+        t = root.time.value
+    
+def sending_function():
+    """ Creates a send socket to transmit sample data. """
+    send_socket = TCPSendSocket(tcp_port=PORT, send_type=NUMPY)
+    send_socket.start(blocking=True)
 
-def main():
-    add_required_plugins()
+    # sample data: 1, 2, ... 6
+    for i in range(NUMBER_OF_MESSAGES):
+        print(f"\t sending! {i+1}")
+        send_socket.send_data(i+1)
+        time.sleep(1.5)
+
+    print("closing send socket.")
+    send_socket.stop()
+    
+def receiving_function():
+    """ Runs SOFA with the Python script to change the y-position value
+        of the end node of a beam.
+        
+        A receive socket is started from within the simulation
+        once the graph is initialised.
+        The y-position of the end node is given by the data received
+        from the send socket.
+    """    
     root = Sofa.Core.Node("root")
     create_scene(root)
-    animate(root)
     
     if VERBOSE:
         Sofa.Simulation.print(root)
+        print()
+        
+    animate(root)
+    
+    
+def main():
+    add_required_plugins()
+    
+    send_thread = Thread(target=sending_function)
+    rec_thread = Thread(target=receiving_function)
+
+    send_thread.start()
+    rec_thread.start()
+
+    send_thread.join()
+    rec_thread.join()
     
 if __name__ == '__main__':
     main()
