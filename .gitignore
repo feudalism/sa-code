@@ -14,3 +14,4 @@ Pipfile.lock
 ## SOFA
 *.ini
 *Zone.Identifier*
+*.log
