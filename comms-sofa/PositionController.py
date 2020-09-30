@@ -3,6 +3,7 @@ from settings import TMAX, PORT
 from DataSocket import TCPReceiveSocket
 
 import time
+import numpy as np
     
 
 class PositionController(Sofa.Core.Controller):
@@ -22,22 +23,23 @@ class PositionController(Sofa.Core.Controller):
         # initialise the objects needed for the simulation
         self.root_node = kwargs['root_node']
         self.mech_obj = None
-        self.positions_obj = None
+        # self.positions_obj = None
         self.positions = None
         self.num_nodes = 0
 
         # create pointers to the model's mech. obj. and the positions
-        model = kwargs['model']
-        self.get_object_pointers(model)
+        self.model = kwargs['model']
+        self.get_object_pointers()
 
     # def onEvent(self, kwargs):
         # print(" Handling event " + str(kwargs))
             
     def onSimulationInitStartEvent(self, kwargs):
         self.init_print_nodes()
+        self.create_socket()
             
     def onSimulationInitDoneEvent(self, kwargs):
-        self.create_socket()
+        pass
 
     def onAnimateBeginEvent(self, kwargs):
         """ Pauses between animation steps so that the animation doesn't
@@ -63,13 +65,10 @@ class PositionController(Sofa.Core.Controller):
             self.rec_socket.stop()
             print('closing receive socket.')
             
-    def get_object_pointers(self, model):
-        self.mech_obj = model.mech_obj
-        
-        ## TODO -- WRONG
-        # the following returns the object's position (single point)
-        # but I want the all the DOFs
-        self.positions_obj = model.mech_obj.findData('position')
+    def get_object_pointers(self):
+        self.mech_obj = self.model.mech_obj
+        # self.positions_obj = model.mech_obj.findData('position') # Sofa.Core.Data
+        self.positions = self.model.mech_obj.position # np.ndarray, writable
         
     def init_print_nodes(self):
         """ Prints number of nodes in the object to be simulated.
@@ -106,28 +105,35 @@ class PositionController(Sofa.Core.Controller):
     def get_node_position(self, n):
         """ Returns current xyz position of the node n."""
         self.update_positions()
-        return self.positions[n]
+        return np.array(self.positions[n])
         
     def update_positions(self):
         """ Updates the positions vector (all nodes) from the pointer."""
-        self.positions = self.positions_obj.value
+        # self.positions = self.positions_obj.value
+        # self.positions = self.positions_obj
+        self.get_object_pointers()
         
     def set_position_at_index(self, n, new_position):   
         """ Sets the position of node n to new_position."""
         # get positions as string
-        vs = self.positions_obj.getValueString()
+        # vs = self.positions_obj.getValueString()
+        # vs = self.positions_obj
         
         # convert to numeric array
-        num_array = [float(i) for i in vs.split()]
+        # num_array = [float(i) for i in vs.split()]
+        # num_array = vs
+        # print(num_array)
+        self.positions[n] = new_position
         
-        # replace only the positions of node n
-        num_array[n*3] = new_position[0]
-        num_array[n*3 + 1] = new_position[1]
-        num_array[n*3 + 2] = new_position[2]
+        # # replace only the positions of node n
+        # num_array[n*3] = new_position[0]
+        # num_array[n*3 + 1] = new_position[1]
+        # num_array[n*3 + 2] = new_position[2]
         
-        # revert to string and set as new position
-        vs_new = ' '.join([str(i) for i in num_array])
-        self.positions_obj.setValueString(vs_new)
+        # # revert to string and set as new position
+        # vs_new = ' '.join([str(i) for i in num_array])
+        # self.positions_obj.setValueString(vs_new)
+        # self.positions_obj = num_array
         
     def print_2d_coords(self, node_position):
         """ Prints the time, as well as x- and y-coordinates

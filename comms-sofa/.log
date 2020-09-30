@@ -1,0 +1,12 @@
+
+--- NEW SESSION: 30/09/2020 11:11:55 ---
+/deformableBeam/DOFs.showColor = 1 1 1 1
+
+--- NEW SESSION: 30/09/2020 11:24:00 ---
+/deformableBeam/visual/visual.material = Default Diffuse 1 0.74902 0.74902 0.74902 1 Ambient 1 0.2 0.2 0.2 1 Specular 0 1 1 1 1 Emissive 0 0 0 0 0 Shininess 0 45 
+
+--- NEW SESSION: 30/09/2020 11:26:51 ---
+/deformableBeam/visual/visual.material = Default Diffuse 1 0.74902 0.74902 0.74902 1 Ambient 1 0.2 0.2 0.2 1 Specular 0 1 1 1 1 Emissive 0 0 0 0 0 Shininess 0 45 
+
+--- NEW SESSION: 30/09/2020 11:28:46 ---
+/deformableBeam/visual/visual.material = Default Diffuse 1 0.8 0.2 0.2 1 Ambient 1 0.156863 0.0392157 0.0392157 1 Specular 0 0.8 0.2 0.2 1 Emissive 0 0.8 0.2 0.2 1 Shininess 0 45 

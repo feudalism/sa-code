@@ -33,12 +33,6 @@ class BeamMin():
         
         # visuals
         self.visu_node = self.main_node.addChild('visual')
-        # self.visu_node.addObject(
-            # 'VisualModel',
-            # name='visual',
-            # src='@../grid',
-            # template='Vec3d',
-            # color='0.8 0.2 0.2 1')
         self.visu_node.addObject(
             'OglModel', # uses SofaOpenglVisual, displays graphics
             template='Vec3d',
@@ -47,7 +41,6 @@ class BeamMin():
             color='0.8 0.2 0.2 1')
         self.visu_node.addObject('IdentityMapping',
             template='Vec3d,Vec3d') # update animation with the simulation results
-            
         
         self.mech_obj.init()
         # Sofa.Simulation.initVisual(self.mech_obj)

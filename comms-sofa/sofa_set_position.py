@@ -60,7 +60,7 @@ def animate(root):
     Sofa.Gui.GUIManager.Init("simple_scene", "qglviewer")
     Sofa.Gui.GUIManager.createGUI(root)
     Sofa.Gui.GUIManager.MainLoop(root)
-    #Sofa.Gui.GUIManager.closeGUI()
+    Sofa.Gui.GUIManager.closeGUI()
     
     # t = root.time.value
     # while t < TMAX:
