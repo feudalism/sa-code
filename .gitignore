@@ -1,12 +1,17 @@
-## TEMPORARY FILES
+## WINDOWS/TEMPORARY FILES
 *.tmp
+*.lnk
 
-## DO NOT UPLOAD
+## PYTHON
 *.pyc
 *py.log
-*.lnk
 *egg-info*
 
 # venvs
 *.venv*
 Pipfile.lock
+
+## SOFA
+*.ini
+*Zone.Identifier*
+*.log
