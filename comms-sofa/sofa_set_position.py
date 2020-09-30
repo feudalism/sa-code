@@ -4,8 +4,9 @@ from settings import PORT, TMAX, VERBOSE, SOFA_INSTALL_DIR, NUMBER_OF_MESSAGES
 from threading import Thread
 
 import SofaRuntime
-import Sofa
 from SofaRuntime import PluginRepository
+import Sofa
+import Sofa.Gui
 
 from PositionController import PositionController
 from BeamMin import BeamMin as Beam
@@ -13,7 +14,7 @@ from BeamMin import BeamMin as Beam
 from DataSocket import TCPSendSocket, NUMPY
 import time
 
-def create_scene(root_node):
+def createScene(root_node):
     # object to be modelled: beam
     beam = Beam(root_node, 'deformableBeam')
     
@@ -47,7 +48,7 @@ def create_scene(root_node):
     return root_node
 
 def add_required_plugins():
-    # PluginRepository.addFirstPath(SOFA_INSTALL_DIR)
+    PluginRepository.addFirstPath(SOFA_INSTALL_DIR)
     SofaRuntime.importPlugin("SofaComponentAll")
     SofaRuntime.importPlugin("SofaPython3")
     SofaRuntime.importPlugin("SofaOpenglVisual")
@@ -56,10 +57,15 @@ def animate(root):
     print("Initialising simulation...")
     Sofa.Simulation.init(root)
     
-    t = root.time.value
-    while t < TMAX:
-        Sofa.Simulation.animate(root, root.dt.value)    
-        t = root.time.value
+    Sofa.Gui.GUIManager.Init("simple_scene", "qglviewer")
+    Sofa.Gui.GUIManager.createGUI(root)
+    Sofa.Gui.GUIManager.MainLoop(root)
+    #Sofa.Gui.GUIManager.closeGUI()
+    
+    # t = root.time.value
+    # while t < TMAX:
+        # Sofa.Simulation.animate(root, root.dt.value)    
+        # t = root.time.value
     
 def sending_function():
     """ Creates a send socket to transmit sample data. """
@@ -85,7 +91,7 @@ def receiving_function():
         from the send socket.
     """    
     root = Sofa.Core.Node("root")
-    create_scene(root)
+    createScene(root)
     
     if VERBOSE:
         Sofa.Simulation.print(root)
