@@ -3,7 +3,6 @@ from settings import TMAX, PORT
 from DataSocket import TCPReceiveSocket
 
 import time
-import numpy as np
     
 
 class PositionController(Sofa.Core.Controller):
@@ -22,19 +21,22 @@ class PositionController(Sofa.Core.Controller):
         
         # initialise the objects needed for the simulation
         self.root_node = kwargs['root_node']
-        self.mech_obj = None
-        # self.positions_obj = None
         self.positions = None
         self.num_nodes = 0
 
-        # create pointers to the model's mech. obj. and the positions
+        # creates pointers to the model's mech. obj. and updates the positions
         self.model = kwargs['model']
-        self.get_object_pointers()
+        self.update_positions_from_object()
 
-    # def onEvent(self, kwargs):
+    def onEvent(self, kwargs):
+        pass
         # print(" Handling event " + str(kwargs))
             
     def onSimulationInitStartEvent(self, kwargs):
+        """ Prints number of nodes of the simulation object and
+            initialises the receive socket.
+        """
+        print("Creating TCPReceiveSocket...")
         self.init_print_nodes()
         self.create_socket()
             
@@ -59,28 +61,24 @@ class PositionController(Sofa.Core.Controller):
         endnode_position = self.get_node_position(endnode_index)
         self.print_2d_coords(endnode_position)
             
-        t = self.root_node.findData('time').value
+        t = self.root_node.time.value
         if t >= TMAX:
             self.root_node.getRootContext().animate = False
             self.rec_socket.stop()
             print('closing receive socket.')
             
-    def get_object_pointers(self):
-        self.mech_obj = self.model.mech_obj
-        # self.positions_obj = model.mech_obj.findData('position') # Sofa.Core.Data
-        self.positions = self.model.mech_obj.position # np.ndarray, writable
-        
     def init_print_nodes(self):
         """ Prints number of nodes in the object to be simulated.
             Also creates a socket before the simulation is started.
         """
-        self.update_positions()
+        self.update_positions_from_object()
         self.num_nodes = len(self.positions)
-        print(f" Total number of nodes: {self.num_nodes}")
+        print(f"Total number of nodes: {self.num_nodes}")
         
     def create_socket(self):
-        # create a socket in the first step
-        print("t:0.0 \tSTART OF SIMULATION/ANIMATION -- creating TCPReceiveSocket")
+        """ Creates a socket in the first step, which runs the handler function
+            when new data is received from the SendSocket.
+        """
         self.rec_socket = TCPReceiveSocket(tcp_port=PORT,
             handler_function=self.set_endnode_y_position)
         self.rec_socket.start(blocking=True)
@@ -92,48 +90,22 @@ class PositionController(Sofa.Core.Controller):
         """
         new_y_value = float(data['data'])
         
-        endnode_index = self.num_nodes - 1
+        n_endnode = self.num_nodes - 1
         
-        endnode_desired_position = self.get_node_position(endnode_index)
-        endnode_desired_position[1] = new_y_value
+        endnode_desired_position = self.get_node_position(n_endnode)
+        endnode_desired_position[1] = new_y_value # indices 0:x, 1:y, 2:z
         
-        self.set_position_at_index(endnode_index, endnode_desired_position)
-        
-        endnode_new_position = self.get_node_position(endnode_index)
-        self.print_2d_coords(endnode_new_position)
+        self.positions[n_endnode] = endnode_desired_position
         
     def get_node_position(self, n):
         """ Returns current xyz position of the node n."""
-        self.update_positions()
-        return np.array(self.positions[n])
+        self.update_positions_from_object()
+        return self.positions[n]
         
-    def update_positions(self):
-        """ Updates the positions vector (all nodes) from the pointer."""
-        # self.positions = self.positions_obj.value
-        # self.positions = self.positions_obj
-        self.get_object_pointers()
-        
-    def set_position_at_index(self, n, new_position):   
-        """ Sets the position of node n to new_position."""
-        # get positions as string
-        # vs = self.positions_obj.getValueString()
-        # vs = self.positions_obj
-        
-        # convert to numeric array
-        # num_array = [float(i) for i in vs.split()]
-        # num_array = vs
-        # print(num_array)
-        self.positions[n] = new_position
-        
-        # # replace only the positions of node n
-        # num_array[n*3] = new_position[0]
-        # num_array[n*3 + 1] = new_position[1]
-        # num_array[n*3 + 2] = new_position[2]
-        
-        # # revert to string and set as new position
-        # vs_new = ' '.join([str(i) for i in num_array])
-        # self.positions_obj.setValueString(vs_new)
-        # self.positions_obj = num_array
+    def update_positions_from_object(self):
+        """ Updates the positions vector from the mechanical object."""
+        # self.positions_obj = model.mech_obj.findData('position') # Sofa.Core.Data
+        self.positions = self.model.mech_obj.position # np.ndarray, writable
         
     def print_2d_coords(self, node_position):
         """ Prints the time, as well as x- and y-coordinates

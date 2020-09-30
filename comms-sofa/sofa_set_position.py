@@ -1,5 +1,3 @@
-# import os, sys, time
-
 from settings import PORT, TMAX, VERBOSE, SOFA_INSTALL_DIR, NUMBER_OF_MESSAGES
 from threading import Thread
 
@@ -57,11 +55,13 @@ def animate(root):
     print("Initialising simulation...")
     Sofa.Simulation.init(root)
     
+    # With GUI
     Sofa.Gui.GUIManager.Init("simple_scene", "qglviewer")
     Sofa.Gui.GUIManager.createGUI(root)
     Sofa.Gui.GUIManager.MainLoop(root)
     Sofa.Gui.GUIManager.closeGUI()
     
+    # Without GUI
     # t = root.time.value
     # while t < TMAX:
         # Sofa.Simulation.animate(root, root.dt.value)    
