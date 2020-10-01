@@ -4,6 +4,8 @@ import Sofa.Gui
 
 SOFA_INSTALL_DIR = "/home/user3/sofa/build2/install"
 
+from BeamMin import BeamMin as Beam
+
 def add_required_plugins():
     SofaRuntime.PluginRepository.addFirstPath(SOFA_INSTALL_DIR)
     SofaRuntime.importPlugin("SofaComponentAll")
@@ -21,7 +23,21 @@ def make_root():
     return root
     
 def createScene(root):
-    pass
+    # object to be modelled: beam
+    beam = Beam(root, 'deformableBeam')
+    
+    # OptiTrack client
+    otnn_client = root.addObject('OptiTrackNatNetClient',
+        name='otnnClient',
+        clientName='localhost:4000',
+        serverName='localhost:5000')
+    otnn_client.init()
+    
+    # visuals
+    root.addObject('VisualStyle',
+        displayFlags='showVisual showWireframe showBehaviorModels')
+    
+    return root
     
 def launch_gui(root):
     # Simulation initialisation required for loading gui
@@ -32,7 +48,11 @@ def launch_gui(root):
     Sofa.Gui.GUIManager.MainLoop(root)
     Sofa.Gui.GUIManager.closeGUI()
     
-add_required_plugins()
-root = make_root()
-createScene(root)
-launch_gui(root)
+def main():
+    add_required_plugins()
+    root = make_root()
+    createScene(root)
+    launch_gui(root)
+    
+if __name__ == '__main__':
+    main()
