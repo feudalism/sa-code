@@ -22,17 +22,54 @@ def make_root():
     
     return root
     
+def create_otnn_client(node):
+    # OptiTrack client
+    otnn_client = node.addObject('OptiTrackNatNetClient',
+        name='otnnClient',
+        clientName='127.0.0.1',
+        serverName='127.0.0.1')
+    otnn_client.init()
+    # print(otnn_client.recv_data_packet) # not available
+    
+    return otnn_client
+
+def create_otnn_device(node, client):
+    device = node.addObject('OptiTrackNatNetDevice',
+        name='HeadDevice',
+        trackableName='Head',   # NatNet
+        isGlobalFrame='1',      # consider this the global frame
+        inMarkersMeshFile="./data/markers-Head.obj",
+        simMarkersMeshFile="./data/markers-Head.obj",
+        drawMarkersColor="0 1 0 1",
+        drawAxisSize="50 10 50",
+        drawMarkersSize="2",
+        natNetClient=client, # Warning: Could not read value for link natNetClient
+        )
+    return device
+        
+def create_head(root):
+    head_node = root.addChild('head')
+    
+    client = create_otnn_client(head_node)
+    device = create_otnn_device(head_node, client)
+    
+    head_visu_node = head_node.addChild('head_visu')
+    head_visu_node.addObject('OglModel',
+        name="vm",
+        filename="./data/head_low.obj"
+        )
+        
+    return head_node, client, device
+    
 def createScene(root):
     # object to be modelled: beam
     beam = Beam(root, 'deformableBeam')
+    head, _, device = create_head(root)
     
-    # OptiTrack client
-    otnn_client = root.addObject('OptiTrackNatNetClient',
-        name='otnnClient',
-        clientName='localhost:4000',
-        serverName='localhost:5000')
-    otnn_client.init()
-    
+    print('---------')
+    print(device)
+    print(dir(device))
+     
     # visuals
     root.addObject('VisualStyle',
         displayFlags='showVisual showWireframe showBehaviorModels')
@@ -52,7 +89,7 @@ def main():
     add_required_plugins()
     root = make_root()
     createScene(root)
-    launch_gui(root)
+    # launch_gui(root)
     
 if __name__ == '__main__':
     main()
