@@ -2,7 +2,6 @@ from settings import PORT, TMAX, VERBOSE, SOFA_INSTALL_DIR, NUMBER_OF_MESSAGES
 from threading import Thread
 
 import SofaRuntime
-from SofaRuntime import PluginRepository
 import Sofa
 import Sofa.Gui
 
@@ -46,13 +45,14 @@ def createScene(root_node):
     return root_node
 
 def add_required_plugins():
-    PluginRepository.addFirstPath(SOFA_INSTALL_DIR)
+    SofaRuntime.PluginRepository.addFirstPath(SOFA_INSTALL_DIR)
     SofaRuntime.importPlugin("SofaComponentAll")
     SofaRuntime.importPlugin("SofaPython3")
     SofaRuntime.importPlugin("SofaOpenglVisual")
 
 def animate(root):
     print("Initialising simulation...")
+    # Simulation initialisation required for loading gui
     Sofa.Simulation.init(root)
     
     # With GUI
