@@ -9,26 +9,28 @@ class BeamMin():
         self.mech_obj = None  
              
         # structure
-        self.main_node.addObject(
+        grid = self.main_node.addObject(
             'RegularGrid',
             name='grid',
             n=[5, 2, 1],     # 4 grids in x, ...
             min=[0., 0., 0.], # min pos of object
             max=[4., 1., 0.]  # max pos of object
             )
+        self.grid_path = grid.getLinkPath()
+        
         
         # mechanical obj
         self.mech_obj = self.main_node.addObject(
             'MechanicalObject',
             name='DOFs')
-        self.main_node.addObject('UniformMass',
-            name='mass',
-            totalMass=10)
+        # self.main_node.addObject('UniformMass',
+            # name='mass',
+            # totalMass=10)
         # maybe better off in a child node (contact node?)
-        self.main_node.addObject('StiffSpringForceField',
-            name='ff',
-            stiffness='1E6',
-            length=1)
+        # self.main_node.addObject('StiffSpringForceField',
+            # name='ff',
+            # stiffness='1E6',
+            # length=1)
         #self.main_node.addObject('LinearMapping', template='Affine,Vec3d')
         
         # visuals

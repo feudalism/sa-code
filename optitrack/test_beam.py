@@ -1,6 +1,9 @@
 import SofaRuntime
 import Sofa
 import Sofa.Gui
+import Sofa.Core
+print(dir(Sofa.Core))
+print(dir(Sofa.Core.Data))
 
 SOFA_INSTALL_DIR = "/home/user3/sofa/build2/install"
 
@@ -24,48 +27,48 @@ def make_root():
     
 def create_otnn_client(node):
     # OptiTrack client
-    client = node.addObject('OptiTrackNatNetClient',
+    client = node.addObject('OptiTrackNatNetClient',        # Sofa.Core.Object
         name='otnnClient',
-        serverName='127.0.0.1')
+        clientName='127.0.0.1',
+        serverName='127.0.0.1',
+        scale='1000',
+        drawOtherMarkersSize='2',   # unknown markers
+        drawTrackedMarkersSize='1') # known markers
     client.init()
-    
     return client
 
-def create_otnn_device(node, client):
+def create_otnn_device(node, client, mesh_path):
     device = node.addObject('OptiTrackNatNetDevice',
         name='HeadDevice',
         trackableName='Head',   # NatNet
         isGlobalFrame='1',      # consider this the global frame
-        inMarkersMeshFile="./data/markers-Head.obj",
-        simMarkersMeshFile="./data/markers-Head.obj",
+        # inMarkersMeshFile="./data/markers-Head.obj",
+        # simMarkersMeshFile="./data/markers-Head.obj",
+        # inMarkersMeshFile=mesh_path,
+        # simMarkersMeshFile="@../grid",
         drawMarkersColor="0 1 0 1",
         drawAxisSize="50 10 50",
         drawMarkersSize="2",
         # natNetClient=client, # Warning: Could not read value for link natNetClient
         )
     device.init()
-        
     return device
-        
-def create_head(root):
-    head_node = root.addChild('head')
     
-    client = create_otnn_client(head_node)
-    device = create_otnn_device(head_node, client)
+def create_beam(root):
+    beam = Beam(root, 'deformableBeam')
+    main_node = beam.main_node # RegularGrid
+    mesh_path = beam.grid_path
     
-    head_visu_node = head_node.addChild('head_visu')
-    head_visu_node.addObject('OglModel',
-        name="vm",
-        filename="./data/head_low.obj"
-        )
-        
-    return head_node, client, device
+    client = create_otnn_client(main_node)
+    device = create_otnn_device(main_node, client, mesh_path)
+    
+    return beam, client, device
     
 def createScene(root):
-    # object to be modelled: head
-    create_head(root)
+    # object to be modelled: beam
+    create_beam(root)
      
-    # visuals -- wireframe
+    # visuals
     root.addObject('VisualStyle',
         displayFlags='showVisual showWireframe showBehaviorModels')
     
@@ -81,10 +84,15 @@ def launch_gui(root):
     Sofa.Gui.GUIManager.closeGUI()
     
 def main():
-    add_required_plugins()
     root = make_root()
     createScene(root)
-    launch_gui(root)
+    # launch_gui(root)
     
+    
+
+# ------run-------
+add_required_plugins()
 if __name__ == '__main__':
     main()
+    
+    
