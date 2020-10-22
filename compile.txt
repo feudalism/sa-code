@@ -1,0 +1,2 @@
+g++ -o executablename main.cpp
+./executablename
