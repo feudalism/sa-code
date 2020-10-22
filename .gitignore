@@ -15,3 +15,8 @@ Pipfile.lock
 *.ini
 *Zone.Identifier*
 *.log
+
+## SWIG
+*.so
+*.o
+*_wrap.cxx
