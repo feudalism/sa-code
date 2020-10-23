@@ -1,0 +1,178 @@
+x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.7m -c swig_config_wrap.cxx -o build/temp.linux-x86_64-3.7/swig_config_wrap.o -lpthread -lstdc++ -I/usr/local/include/opencv4 -I/usr/include/eigen3 -I/usr/include/pcl-1.8 -I/home/user3/slam/DefSLAM -I/home/user3/slam/DefSLAM/Modules/Common -I/home/user3/slam/DefSLAM/Modules/GroundTruth -I/home/user3/slam/DefSLAM/Modules/Mapping -I/home/user3/slam/DefSLAM/Modules/Matching -I/home/user3/slam/DefSLAM/Modules/Settings -I/home/user3/slam/DefSLAM/Modules/Template -I/home/user3/slam/DefSLAM/Modules/ToolsPCL -I/home/user3/slam/DefSLAM/Modules/Tracking -I/home/user3/slam/DefSLAM/Modules/Viewer -I/home/user3/slam/DefSLAM/Thirdparty/BBS -I/home/user3/slam/DefSLAM/Thirdparty/ORBSLAM_2/include -I/usr/include
+swig_config_wrap.cxx: In function ‘int Swig_var_MapPoint_mGlobalMutex_set(PyObject*)’:
+swig_config_wrap.cxx:7773:44: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+       ORB_SLAM2::MapPoint::mGlobalMutex = *temp;
+                                            ^~~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx: In function ‘PyObject* _wrap_Map_mMutexMapUpdate_set(PyObject*, PyObject*)’:
+swig_config_wrap.cxx:8304:15: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+       arg2 = *temp;
+               ^~~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx:8308:39: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+   if (arg1) (arg1)->mMutexMapUpdate = arg2;
+                                       ^~~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx: In function ‘PyObject* _wrap_Map_mMutexMapUpdate_get(PyObject*, PyObject*)’:
+swig_config_wrap.cxx:8330:37: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+   result =  ((arg1)->mMutexMapUpdate);
+                                     ^
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx:8331:90: error: use of deleted function ‘std::mutex::mutex(const std::mutex&)’
+   resultobj = SWIG_NewPointerObj((new std::mutex(static_cast< const std::mutex& >(result))), SWIGTYPE_p_std__mutex, SWIG_POINTER_OWN |  0 );
+                                                                                          ^
+swig_config_wrap.cxx:1187:89: note: in definition of macro ‘SWIG_NewPointerObj’
+ #define SWIG_NewPointerObj(ptr, type, flags)            SWIG_Python_NewPointerObj(NULL, ptr, type, flags)
+                                                                                         ^~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:97:5: note: declared here
+     mutex(const mutex&) = delete;
+     ^~~~~
+swig_config_wrap.cxx: In function ‘PyObject* _wrap_Map_mMutexPointCreation_set(PyObject*, PyObject*)’:
+swig_config_wrap.cxx:8364:15: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+       arg2 = *temp;
+               ^~~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx:8368:43: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+   if (arg1) (arg1)->mMutexPointCreation = arg2;
+                                           ^~~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx: In function ‘PyObject* _wrap_Map_mMutexPointCreation_get(PyObject*, PyObject*)’:
+swig_config_wrap.cxx:8390:41: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+   result =  ((arg1)->mMutexPointCreation);
+                                         ^
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx:8391:90: error: use of deleted function ‘std::mutex::mutex(const std::mutex&)’
+   resultobj = SWIG_NewPointerObj((new std::mutex(static_cast< const std::mutex& >(result))), SWIGTYPE_p_std__mutex, SWIG_POINTER_OWN |  0 );
+                                                                                          ^
+swig_config_wrap.cxx:1187:89: note: in definition of macro ‘SWIG_NewPointerObj’
+ #define SWIG_NewPointerObj(ptr, type, flags)            SWIG_Python_NewPointerObj(NULL, ptr, type, flags)
+                                                                                         ^~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:97:5: note: declared here
+     mutex(const mutex&) = delete;
+     ^~~~~
+swig_config_wrap.cxx: In function ‘PyObject* _wrap_delete_Map(PyObject*, PyObject*)’:
+swig_config_wrap.cxx:8411:10: warning: deleting object of polymorphic class type ‘ORB_SLAM2::Map’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
+   delete arg1;
+          ^~~~
+swig_config_wrap.cxx: In function ‘PyObject* _wrap_Template_mutexDrawer__set(PyObject*, PyObject*)’:
+swig_config_wrap.cxx:9033:15: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+       arg2 = *temp;
+               ^~~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx:9037:36: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+   if (arg1) (arg1)->mutexDrawer_ = arg2;
+                                    ^~~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx: In function ‘PyObject* _wrap_Template_mutexDrawer__get(PyObject*, PyObject*)’:
+swig_config_wrap.cxx:9059:34: error: use of deleted function ‘std::mutex& std::mutex::operator=(const std::mutex&)’
+   result =  ((arg1)->mutexDrawer_);
+                                  ^
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:98:12: note: declared here
+     mutex& operator=(const mutex&) = delete;
+            ^~~~~~~~
+swig_config_wrap.cxx:9060:90: error: use of deleted function ‘std::mutex::mutex(const std::mutex&)’
+   resultobj = SWIG_NewPointerObj((new std::mutex(static_cast< const std::mutex& >(result))), SWIGTYPE_p_std__mutex, SWIG_POINTER_OWN |  0 );
+                                                                                          ^
+swig_config_wrap.cxx:1187:89: note: in definition of macro ‘SWIG_NewPointerObj’
+ #define SWIG_NewPointerObj(ptr, type, flags)            SWIG_Python_NewPointerObj(NULL, ptr, type, flags)
+                                                                                         ^~~
+In file included from /usr/include/c++/7/mutex:43:0,
+                 from /usr/local/include/opencv4/opencv2/core/utility.hpp:62,
+                 from /usr/local/include/opencv4/opencv2/core.hpp:3293,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Template.h:25,
+                 from /home/user3/slam/DefSLAM/Modules/Template/Edge.h:25,
+                 from swig_config_wrap.cxx:3137:
+/usr/include/c++/7/bits/std_mutex.h:97:5: note: declared here
+     mutex(const mutex&) = delete;
+     ^~~~~
+error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
