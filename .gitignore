@@ -20,3 +20,6 @@ Pipfile.lock
 *.so
 *.o
 *_wrap.cxx
+
+## SLAM
+*Thirdparty/*.txt
