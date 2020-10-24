@@ -1,2 +1,3 @@
 *.txt
 *.in
+*cmake_modules*
