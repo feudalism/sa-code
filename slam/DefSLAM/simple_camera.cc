@@ -8,9 +8,6 @@ int main(int argc, char **argv)
     string calibFile = argv[2];    
     string videoFile = argv[3];
     
-	// prints the number of arguments
-    std::cout << argc << std::endl;
-    
 	// prints usage if wrong number of arguments
     if ((argc != 4) and (argc != 3))
     {
@@ -51,8 +48,6 @@ int main(int argc, char **argv)
     // Create SLAM system. It initializes all system threads (local mapping, loop closing, viewer)
     // and gets ready to process frames.
     // args: ORB vocab, calibration file, use viewer
-    std::cout << "----------/DEBUG------------" << std::endl;
-    std::terminate();
     defSLAM::System SLAM(orbVocab, calibFile, true);
 
     uint i(0);
@@ -74,8 +69,7 @@ int main(int argc, char **argv)
 
         // process the given monocular frame and returns the camera pose
         // args: image matrix, timestamp
-        std::terminate();
-        //SLAM.TrackMonocular(imLeft, i);
+        SLAM.TrackMonocular(imLeft, i);
         i++;
     }
 

@@ -75,6 +75,7 @@ namespace defSLAM
   // Main function of tracking.
   void DefTracking::Track()
   {
+    std::cout << "----------/DefTracking::Track------------" << std::endl;
     if (mState == NO_IMAGES_YET)
     {
       mState = NOT_INITIALIZED;
@@ -347,6 +348,7 @@ namespace defSLAM
   // Initial tracking to locate rigidly the camera and discard outliers.
   bool DefTracking::TrackWithMotionModel()
   {
+    std::cout << "----------/DefTracking::TrackWithMotionModel------------" << std::endl;
     DefORBmatcher Defmatcher(0.9, false);
 
     // Update last frame pose according to its reference keyframe
@@ -360,7 +362,9 @@ namespace defSLAM
 
     // Project points seen in previous frame
     int th(20);
-
+    
+    // Project MapPoints tracked in last frame into the current frame and search
+    // matches.
     int nmatches = Defmatcher.SearchByProjection(*mCurrentFrame, mLastFrame, th,
                                                  mSensor == System::MONOCULAR);
 
@@ -588,10 +592,13 @@ namespace defSLAM
   // Initialize scene with a plane.
   void DefTracking::MonocularInitialization()
   {
+    std::cout << "----------/DefTracking::MonocularInitialization------------" << std::endl;
     /// Initialize the surface and the points in the surface considering a plane
     /// parallel to the camera plane
     if (mCurrentFrame->N > 100)
     {
+      std::cout << "----------/--current frame has N > 100 features" << std::endl;
+
       // Set Frame pose to the origin
       mCurrentFrame->SetPose(cv::Mat::eye(4, 4, CV_32F));
 

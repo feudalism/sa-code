@@ -253,7 +253,8 @@ namespace ORB_SLAM2
   cv::Mat Tracking::GrabImageMonocular(const cv::Mat &im,
                                        const double &timestamp)
   {
-
+    std::cout << "----------/ORBSLAM::GrabImageMonocular------------" << std::endl;
+    
     mImGray = im.clone();
     im.copyTo(mImRGB);
     saveResults = false;
