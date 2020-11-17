@@ -187,7 +187,6 @@ namespace defSLAM
   cv::Mat System::TrackMonocular(const cv::Mat &im, const double &timestamp,
                                  const cv::Mat _mask)
   {
-    std::cout << "----------/System::TrackMonocular------------" << std::endl;
     cv::Mat Mask;
     if (_mask.empty())
     {
