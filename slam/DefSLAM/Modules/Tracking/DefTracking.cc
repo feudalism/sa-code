@@ -75,7 +75,6 @@ namespace defSLAM
   // Main function of tracking.
   void DefTracking::Track()
   {
-    std::cout << "----------/DefTracking::Track------------" << std::endl;
     if (mState == NO_IMAGES_YET)
     {
       mState = NOT_INITIALIZED;
@@ -240,6 +239,7 @@ namespace defSLAM
   //Main function of tracking where the map is considered deformable.
   bool DefTracking::TrackLocalMap()
   {
+    std::cout << "----------/DefTracking::TrackLocalMap()------------" << std::endl;
     // We have an estimation of the camera pose and some map points tracked in the
     // frame. We retrieve the local map and try to find matches to points in the
     // local map.

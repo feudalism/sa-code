@@ -48,7 +48,6 @@ namespace defSLAM
       : mSensor(MONOCULAR), mpLoopCloser(NULL), mpViewer(static_cast<Viewer *>(nullptr)),
         mbReset(false), mbActivateLocalizationMode(false), mbDeactivateLocalizationMode(false)
   {
-      std::cout << "----------/defSLAM::System constructor----------------" << std::endl;
     // Output welcome message
 #ifndef ORBSLAM
     cout << endl

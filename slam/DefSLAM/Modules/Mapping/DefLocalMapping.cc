@@ -78,6 +78,7 @@ namespace defSLAM
   {
 
     mbFinished = false;
+    std::cout << "---------------DefLocalMapping::Run()" << std::endl;
 
     while (1)
     {

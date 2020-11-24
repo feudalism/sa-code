@@ -47,6 +47,8 @@ namespace ORB_SLAM2
   void LocalMapping::Run()
   {
     mbFinished = false;
+    std::cout << "---------------OS2::LocalMapping::Run()" << std::endl;
+    std::terminate();
 
     while (1)
     {

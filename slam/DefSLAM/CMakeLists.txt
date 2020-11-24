@@ -95,11 +95,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Apps)
 
 ## Just receive image from a camera or a video and process them.
 # add_executable(DefSLAM Apps/simple_camera.cc) 
-add_executable(DefSLAM /home/user3/git/sa-code/slam/simple_camera.cc) 
+add_executable(DefSLAM /home/user3/git/sa-code/slam/DefSLAM/simple_camera.cc) 
 target_link_libraries(DefSLAM ${PROJECT_NAME})
 
-add_executable(DefSLAMGTCT Apps/simple_CT.cc) 
-target_link_libraries(DefSLAMGTCT ${PROJECT_NAME})
+# add_executable(DefSLAMGTCT Apps/simple_CT.cc) 
+# target_link_libraries(DefSLAMGTCT ${PROJECT_NAME})
 
-add_executable(DefSLAMGT Apps/stereo_groundtruth.cc)
-target_link_libraries(DefSLAMGT ${PROJECT_NAME})
+# add_executable(DefSLAMGT Apps/stereo_groundtruth.cc)
+# target_link_libraries(DefSLAMGT ${PROJECT_NAME})
