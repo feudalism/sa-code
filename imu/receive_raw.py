@@ -1,16 +1,22 @@
 from DataSocket import TCPReceiveSocket
+
 import struct
 import sys
 import threading
-from time import sleep
+import time
 
+# Config
 REC_PORT = 4242
 IP_ADDR = '129.69.94.93'
-stop_flag = threading.Event()
+STOP_FLAG = threading.Event()
+DATA_HEADER = "    a_x     a_y     a_z        g_x     g_y     g_z"
 
 def print_data(data):
-    print(data, "unpacked:", struct.unpack('ffffff', data))
+    imudata = struct.unpack('ffffff', data)
+    print(f"{imudata[0]:7.3f} {imudata[1]:7.3f} {imudata[2]:7.3f}", end="    ")
+    print(f"{imudata[3]:7.3f} {imudata[4]:7.3f} {imudata[5]:7.3f}")
 
+# Main receive socket function
 receive_socket = TCPReceiveSocket(tcp_port=REC_PORT,
         tcp_ip=IP_ADDR,
         receive_as_raw=True,
@@ -18,13 +24,15 @@ receive_socket = TCPReceiveSocket(tcp_port=REC_PORT,
 
 def start_receive_socket():
     print("Starting receive socket...")
+    print(DATA_HEADER)
     receive_socket.start()
 
 thread = threading.Thread(target=start_receive_socket)
 thread.start()
 
+# Stop receiving
 input("Press enter to stop receiving data.\n")
-stop_flag.set()
+STOP_FLAG.set()
 thread.join()
 
 print("Stopping receive socket.")
