@@ -5,11 +5,10 @@ import sys
 import threading
 import time
 
+from config import REC_PORT, PI_IP_ADDR, IMU_HEADER
+
 # Config
-REC_PORT = 4242
-IP_ADDR = '129.69.94.93'
 STOP_FLAG = threading.Event()
-DATA_HEADER = "    a_x     a_y     a_z        g_x     g_y     g_z"
 
 def print_data(data):
     imudata = struct.unpack('ffffff', data)
@@ -18,13 +17,13 @@ def print_data(data):
 
 # Main receive socket function
 receive_socket = TCPReceiveSocket(tcp_port=REC_PORT,
-        tcp_ip=IP_ADDR,
+        tcp_ip=PI_IP_ADDR,
         receive_as_raw=True,
         handler_function=print_data)
 
 def start_receive_socket():
     print("Starting receive socket...")
-    print(DATA_HEADER)
+    print(IMU_HEADER)
     receive_socket.start()
 
 thread = threading.Thread(target=start_receive_socket)

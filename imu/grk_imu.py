@@ -1,9 +1,8 @@
 from imu import MPU6050
+from config import DEVICE_ADDRESS
+
 import time
 import struct
-
-DEVICE_ADDRESS = 0x68
-DATA_HEADER = "    a_x     a_y     a_z        g_x     g_y     g_z"
 
 imu = MPU6050(1, DEVICE_ADDRESS)
 
