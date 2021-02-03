@@ -12,16 +12,15 @@ while cap.isOpened():
         print('Can\'t read frame. Exiting...')
         break
         
-    kp = orb.detect(frame, None)
-    kp, des = orb.compute(frame, kp)
+    ft = orb.detect(frame, None)
+    kp, des = orb.compute(frame, ft)
     
-    print(kp[0].pt)
-    print(des[0])
+    # print(kp[0].pt)
+    # print(des[0])
+    # print(kp[1].pt)
+    # print(des[1])
     
-    print(kp[1].pt)
-    print(des[1])
-    
-    input()
+    # input()
     
     img = cv.drawKeypoints(frame, kp, None, color=(0, 255, 0), flags=0)
     
