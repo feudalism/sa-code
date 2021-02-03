@@ -1,6 +1,7 @@
 ## WINDOWS/TEMPORARY FILES
 *.tmp
 *.lnk
+*.swp
 
 ## PYTHON
 *.pyc
